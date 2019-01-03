@@ -1,17 +1,6 @@
 
-function loadImage(url) {
-  return new Promise( resolve => {
-    const image = new Image();
-
-    image.addEventListener('load', () => {
-      resolve(image);
-    });
-
-    image.src = url;
-  });
-}
-
 import SpriteSheet from './SpriteSheet.js';
+import { loadImage } from './loaders.js';
 
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
