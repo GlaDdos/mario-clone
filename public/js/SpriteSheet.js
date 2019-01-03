@@ -4,6 +4,8 @@ class SpriteSheet {
     this.width = width;
     this.height = height;
     this.tiles = new Map();
+
+    this.draw = this.draw.bind(this);
   }
 
   define(name, x, y) {
@@ -32,6 +34,10 @@ class SpriteSheet {
   draw(name, context, x, y) {
     const buffer = this.tiles.get(name);
     context.drawImage(buffer, x, y);
+  }
+
+  drawTile(name, context, x, y) {
+    this.draw(name, context, x * this.width, y * this.height);
   }
 }
 
