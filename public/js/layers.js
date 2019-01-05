@@ -22,4 +22,10 @@ function createBackgroundLayer(backgrounds, sprites) {
     }
 }
 
-export { createBackgroundLayer, drawBackground };
+function createSpriteLayer(entity) {
+  return function drawSpriteLayer(context) {
+    entity.draw(context)
+  };
+}
+
+export { createBackgroundLayer, createSpriteLayer, drawBackground };

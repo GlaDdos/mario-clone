@@ -1,40 +1,33 @@
 import { loadLevel } from './loaders.js';
-import { loadMarioSprite, loadBackgroundSprites} from './sprites.js';
+import { loadBackgroundSprites} from './sprites.js';
 import Compositor  from './Compositor.js';
-import {createBackgroundLayer} from './layers.js';
+import { createBackgroundLayer, createSpriteLayer } from './layers.js';
+import { createMario } from './entities.js';
 
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
 
-function createSpriteLayer(sprite, pos) {
-  return function drawSpriteLayer(contex) {
-    sprite.draw('idle', context, pos.x, pos.y);
-  };
-}
+
 
 Promise.all([
-  loadMarioSprite(),
+  createMario(),
   loadBackgroundSprites(),
   loadLevel('1-1')
 ])
-.then(([marioSprites, backgroundSprites, level] ) => {
+.then(([mario, backgroundSprites, level] ) => {
     const comp = new Compositor();
+    const gravity = 0.5;
 
     const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
-    comp.layers.push(backgroundLayer);
+    //comp.layers.push(backgroundLayer);
 
-    const pos = {
-      x: 64, y: 64
-    }
-
-    const spriteLayer = createSpriteLayer(marioSprites, pos);
+    const spriteLayer = createSpriteLayer(mario);
     comp.layers.push(spriteLayer);
 
     function update() {
       comp.draw(context);
-
-      pos.x += 2;
-      pos.y += 2;
+      mario.velocity.y += gravity;
+      mario.update();
 
       requestAnimationFrame(update);
     }
