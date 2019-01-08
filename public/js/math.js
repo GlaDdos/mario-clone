@@ -17,7 +17,7 @@ export class Matrix {
 
   set(x, y, value) {
     if(!this.grid[x]) {
-      this.grid[x] = new [];
+      this.grid[x] = [];
     }
 
     this.grid[x][y] = value;
