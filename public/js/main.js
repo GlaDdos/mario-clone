@@ -9,13 +9,6 @@ import KeyboardState from './KeyboardState.js'
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
 
-const input = new KeyboardState();
-input.addMapping(32, keyState => {
-  console.log(keyState);
-});
-
-input.listenTo(window);
-
 Promise.all([
   createMario(),
   loadBackgroundSprites(),
@@ -25,18 +18,29 @@ Promise.all([
     const comp = new Compositor();
     
     const gravity = 2000;
-
-    const timer = new Timer();
-
     mario.position.set(64, 180);
-    mario.velocity.set(200, -600)
+    
+    const SPACE = 32;
+    const input = new KeyboardState();
+    input.addMapping(SPACE, keyState => {
+      if(keyState) {
+        console.log(mario.jump)
+        mario.jump.start();
+      } else {
+        mario.jump.cancel();
+      }
+      console.log(keyState);
+    });
+
+    input.listenTo(window);
 
     const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
     comp.layers.push(backgroundLayer);
-
+    
     const spriteLayer = createSpriteLayer(mario);
     comp.layers.push(spriteLayer);
-
+    
+    const timer = new Timer();
     timer.update = function update(deltaTime) {
       mario.velocity.y += gravity * deltaTime;
       mario.update(deltaTime);
