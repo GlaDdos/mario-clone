@@ -22,9 +22,11 @@ function createBackgroundLayer(backgrounds, sprites) {
     }
 }
 
-function createSpriteLayer(entity) {
+function createSpriteLayer(entities) {
   return function drawSpriteLayer(context) {
-    entity.draw(context)
+    entities.forEach( entity => {
+      entity.draw(context)
+    })
   };
 }
 
