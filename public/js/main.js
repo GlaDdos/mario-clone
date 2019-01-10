@@ -30,6 +30,15 @@ Promise.all([
 
     input.listenTo(window);
 
+    ['mousedown', 'mousemove'].forEach( eventName => {
+      canvas.addEventListener(eventName, event => {
+        if(event.buttons === 1) {
+          mario.velocity.set(0,0);
+          mario.position.set(event.offsetX, event.offsetY);
+        }
+      })
+    })
+
     const timer = new Timer();
     timer.update = function update(deltaTime) {
       level.update(deltaTime);
