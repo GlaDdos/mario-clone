@@ -15,6 +15,14 @@ export class Matrix {
     this.grid = [];
   }
 
+  forEach(callback) {
+    this.grid.forEach((column, x) => {
+      column.forEach((tile,y) => {
+        callback(tile, x, y);
+      });
+    });
+  }
+
   set(x, y, value) {
     if(!this.grid[x]) {
       this.grid[x] = [];

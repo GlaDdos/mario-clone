@@ -7,10 +7,8 @@ function createBackgroundLayer(level, sprites) {
 
     const context = buffer.getContext('2d');
 
-    level.tiles.grid.forEach( (col, x) => {
-      col.forEach((tile, y) => {
-        sprites.drawTile(tile.name, context, x, y)
-      });
+    level.tiles.forEach((tile, x, y) => {
+      sprites.drawTile(tile.name, context, x, y);
     });
 
 
