@@ -16,11 +16,11 @@ export default class TileCollider {
       return;
     }
 
-    const matches = this.tiles.searchByRange(entity.position.x, entity.position.x + entity.size.x, y, y + entity.size.y);
+    const matches = this.tiles.searchByRange(entity.position.x, entity.position.x + entity.size.x, y, y );
 
     matches.forEach( match => {
 
-      if(match.tile.name !== 'ground') {
+      if(match.tile.type !== 'ground') {
         return;
       }
   
@@ -53,7 +53,7 @@ export default class TileCollider {
 
     matches.forEach( match => {
 
-      if(match.tile.name !== 'ground') {
+      if(match.tile.type !== 'ground') {
         return;
       }
   

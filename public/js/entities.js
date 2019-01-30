@@ -15,7 +15,7 @@ export function createMario() {
       //mario.addTrait(new Velocity());
     
       mario.draw = function drawMario(context) {
-        sprite.draw('idle', context, this.position.x, this.position.y);
+        sprite.draw('idle', context, 0,0);
       }
     
       return mario;
