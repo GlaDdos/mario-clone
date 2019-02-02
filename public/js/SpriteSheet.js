@@ -4,6 +4,7 @@ class SpriteSheet {
     this.width = width;
     this.height = height;
     this.tiles = new Map();
+    this.animations = new Map();
 
     this.draw = this.draw.bind(this);
   }
@@ -52,6 +53,15 @@ class SpriteSheet {
 
   drawTile(name, context, x, y) {
     this.draw(name, context, x * this.width, y * this.height);
+  }
+
+  defineAnimation(name, animation){
+    this.animations.set(name, animation);
+  }
+
+  drawAnimation(name, context, x, y, distance) {
+    const animation = this.animations.get(name);
+    this.drawTile(animation(distance), context, x, y);
   }
 }
 
