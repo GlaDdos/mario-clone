@@ -8,7 +8,7 @@ function loadJSON(url) {
 }
 
 
-function loadSpriteSheet(name) {
+export function loadSpriteSheet(name) {
   return loadJSON(`./../sprites/${name}.json`)
     .then(sheetSpec => Promise.all([
       sheetSpec,
@@ -16,9 +16,18 @@ function loadSpriteSheet(name) {
     ]))
     .then(([sheetSpec, image]) => {
       const sprites = new SpriteSheet(image, sheetSpec.tileWidth, sheetSpec.tileHeight);
-      sheetSpec.tiles.forEach( tile => {
-        sprites.defineTile(tile.name, ...tile.index)
-      })
+      
+      if(sheetSpec.tiles) {
+        sheetSpec.tiles.forEach( tile => {
+          sprites.defineTile(tile.name, ...tile.index)
+        })
+      }
+
+      if(sheetSpec.frames) {
+        sheetSpec.frames.forEach( frameSpec => {
+          sprites.define( frameSpec.name, ...frameSpec.rect);
+        })
+      }
 
       return sprites;
     })
