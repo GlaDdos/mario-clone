@@ -8,7 +8,7 @@ export default class Level {
     this.entities = new Set();
     this.tiles = new Matrix();
 
-    this.gravity = 2000;
+    this.gravity = 1500;
     this.totalTime = 0;
     this.tileCollider = new TileCollider(this.tiles);
 

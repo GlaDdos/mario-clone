@@ -35,6 +35,10 @@ Promise.all([
     const timer = new Timer();
     timer.update = function update(deltaTime) {
       level.update(deltaTime);
+
+      if(mario.position.x > 100) {
+        camera.position.x = mario.position.x - 100;
+      }
       level.comp.draw(context, camera);
     }
 
